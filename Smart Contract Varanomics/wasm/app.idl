@@ -1,0 +1,25 @@
+type Events = enum {
+  EntryRegistered: actor_id,
+  Received: actor_id,
+};
+
+type CustomStruct = struct {
+  user: actor_id,
+  description: str,
+  number1: u32,
+  number2: u32,
+};
+
+constructor {
+  New : ();
+};
+
+service Service {
+  HandleReceive : (user: actor_id, description: str, number1: u32, number2: u32) -> Events;
+  RegisterEntry : (user: actor_id, description: str, number1: u32, number2: u32) -> Events;
+  query HandleRequestData : (user: actor_id) -> opt struct { str, u32, u32 };
+  query QueryGetAdmins : () -> vec actor_id;
+  query QueryGetAllUsers : () -> vec struct { actor_id, str };
+  query QueryGetRegisteredEntries : () -> vec CustomStruct;
+};
+
